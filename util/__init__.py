@@ -1,4 +1,6 @@
 from yaml import load as load_yaml, Loader
+from .logs import *
+from .messages import *
 
 def load_config():
     with open('config.yml') as file:
