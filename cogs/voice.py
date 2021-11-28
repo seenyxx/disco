@@ -97,7 +97,7 @@ class Voicerooms(commands.Cog):
     @commands.has_permissions(manage_guild=True, manage_channels=True)
     @commands.bot_has_guild_permissions(manage_guild=True, manage_channels=True)
     @commands.command('remove-rooms')
-    async def room_setup(self, ctx: Context):
+    async def rem_room_setup(self, ctx: Context):
         """ Removes the current channel that you join to create a room """
         delete_guild_vc_create_channel(ctx.guild.id)
         await ctx.reply(embed=success_embed('Successfully removed the voice room creation channel!'))
