@@ -3,7 +3,7 @@ from nextcord.ext import commands
 from nextcord.ext.commands.context import Context
 from nextcord.guild import Guild
 from nextcord.member import Member, VoiceState
-from util.db import append_guild_current_channel, del_guild, get_guild_current_channels, get_guild_vc_create_channel, get_room_name, match_guild_current_channels, remove_guild_current_channel, set_guild_current_channels, set_guild_vc_create_channel, set_room_name
+from util.db import append_guild_current_channel, del_guild, delete_guild_current_channels, get_guild_current_channels, get_guild_vc_create_channel, get_room_name, match_guild_current_channels, remove_guild_current_channel, set_guild_current_channels, set_guild_vc_create_channel, set_room_name
 from util.messages import error_embed, success_embed
 
 
@@ -90,6 +90,17 @@ class Voicerooms(commands.Cog):
             return
 
         set_guild_vc_create_channel(ctx.guild.id, ctx.author.voice.channel.id)
+        await ctx.reply(embed=success_embed('Successfully set your current voice channel to the voice room creation channel!'))
+
+    @commands.guild_only()
+    @commands.cooldown(1, 10, commands.BucketType.user)
+    @commands.has_permissions(manage_guild=True, manage_channels=True)
+    @commands.bot_has_guild_permissions(manage_guild=True, manage_channels=True)
+    @commands.command('remove-rooms')
+    async def room_setup(self, ctx: Context):
+        """ Removes the current channel that you join to create a room """
+
+        delete_guild_current_channels(ctx.guild.id, ctx.author.voice.channel.id)
         await ctx.reply(embed=success_embed('Successfully set your current voice channel to the voice room creation channel!'))
 
     @commands.guild_only()

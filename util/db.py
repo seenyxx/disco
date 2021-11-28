@@ -18,6 +18,10 @@ def get_guild_vc_create_channel(guild_id):
     else:
         return None
 
+def delete_guild_vc_create_channel(guild_id):
+    if f'guild_{guild_id}_create_channel' in db:
+        del db[f'guild_{guild_id}_create_channel']
+
 def set_guild_current_channels(guild_id, list):
     db[f'guild_{guild_id}_current_channels'] = list
 
@@ -43,7 +47,8 @@ def remove_guild_current_channel(guild_id, id):
         set_guild_current_channels(guild_id, current_channels)
 
 def delete_guild_current_channels(guild_id):
-    del db[f'guild_{guild_id}_current_channels']
+    if f'guild_{guild_id}_current_channels' in db:
+        del db[f'guild_{guild_id}_current_channels']
 
 def match_guild_current_channels(guild_id, id):
     current_channels = get_guild_current_channels(guild_id)
