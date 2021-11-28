@@ -1,7 +1,6 @@
 from nextcord.ext import commands
 from nextcord.embeds import Embed
 from math import floor
-from copy import deepcopy
 from nextcord.ext.commands.context import Context
 from util import error_too_many_args
 from util.messages import error_help_menu_notfound
@@ -20,6 +19,7 @@ class Misc(commands.Cog):
 
         await ctx.reply(f'Pong! {floor(self.bot.latency * 1000)}ms')
 
+    @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.command(name='help')
     async def help(self, ctx: Context, *cog):
         """ Shows this menu """
@@ -29,7 +29,7 @@ class Misc(commands.Cog):
 
             cogs_text = ''
             for c in self.bot.cogs:
-                cogs_text += f'**{c}** - {self.bot.cogs[c].__doc__}'
+                cogs_text += f'**{c}** - {self.bot.cogs[c].__doc__}\n'
 
             embed.add_field(name='Categories', value=cogs_text[0: len(cogs_text) - 1])
 

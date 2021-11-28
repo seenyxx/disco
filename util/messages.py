@@ -8,3 +8,6 @@ def error_too_many_args():
 
 def error_help_menu_notfound():
     return error_embed('Command/Category not found!')
+
+def success_embed(desc):
+    return Embed(title='Success', description=desc, color=0x31d663)
